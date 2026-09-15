@@ -34,53 +34,74 @@
 // }
 //
 // export default App;
+//
 
-const students = [
-  { name: "Vraj", course: "CSE", marks: 85 },
-  { name: "Rahul", course: "IT", marks: 78 },
-  { name: "Aman", course: "CSE", marks: 92 }
-];
-
-function StudentCard({ name, course, marks }) {
-  return (
-      <div>
-      <h2>{name}</h2>
-      <p>Course: {course}</p>
-      <p>Marks: {marks}</p>
-      </div>
-  )
-}
+import { useState } from "react";
 
 function App() {
+  const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
+  const [marks, setMarks] = useState("");
 
-  const students = [
-    { name: "Vraj", course: "CSE", marks: 85 },
-    { name: "Rahul", course: "IT", marks: 78 },
-    { name: "Aman", course: "CSE", marks: 92 }
-  ];
+  const [students, setStudents] = useState([]);
 
-  const Students = [
-    {
-      name: "Vraj",
-      course: "CSE",
-      marks: 85
-    },
-    {
-      name: "Rahul",
-      course: "IT",
-      marks: 78
-    },
-    {
-      name: "Aman",
-      course: "CSE",
-      marks: 92
-    }
-  ];
+  function addStudent() {
+    const newStudent = {
+      name,
+      course,
+      marks
+    };
+
+    setStudents([...students, newStudent]);
+
+    setName("");
+    setCourse("");
+    setMarks("");
+  }
+
+  return (
+      <div>
+        <h1>Student Manager</h1>
+
+        <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter student name"
+        />
+
+        <br />
+
+        <input
+            value={course}
+            onChange={(e) => setCourse(e.target.value)}
+            placeholder="Enter course"
+        />
+
+        <br />
+
+        <input
+            value={marks}
+            onChange={(e) => setMarks(e.target.value)}
+            placeholder="Enter marks"
+        />
+
+        <br />
+
+        <button onClick={addStudent}>
+          Add Student
+        </button>
+
+        <h2>Students:</h2>
+
+        {students.map(student => (
+            <div key={student.name}>
+              <h3>{student.name}</h3>
+              <p>Course: {student.course}</p>
+              <p>Marks: {student.marks}</p>
+            </div>
+        ))}
+      </div>
+  );
 }
 
-<StudentCard
-    key={student.name}
-
-/>
-
-export default App
+export default App;
