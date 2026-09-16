@@ -110,6 +110,7 @@
 
 import { useEffect ,useState } from "react";
 import UserCard from "./components/UserCard";
+import { getUsers } from "./services/userService";
 
 function App() {
 
@@ -120,28 +121,21 @@ function App() {
 
     useEffect(() => {
 
-        async function getUsers() {
+        async function loadUsers() {
 
             try {
-                const response = await fetch(
-                    "https://jsonplaceholder.typicode.com/users"
-                );
-                if (!response.ok) {
-                    throw new Error("Failed to fetch users");
-                }
-
-                const data = await response.json();
-                console.log(data);
+                const data = await getUsers();
                 setUsers(data);
+
             } catch (err) {
                 setError("Failed to load users");
-            }finally {
+
+            } finally {
                 setLoading(false);
             }
-
         }
 
-        getUsers();
+        void loadUsers();
 
     }, []);
 
