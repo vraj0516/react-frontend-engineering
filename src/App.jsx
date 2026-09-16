@@ -109,13 +109,13 @@
 ///////////////////////////////////////////Day 2 /////////////////////////////////////////
 
 import { useEffect ,useState } from "react";
+import UserCard from "./components/UserCard";
 
 function App() {
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [count, setCount] = useState(0);
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -145,9 +145,6 @@ function App() {
 
     }, []);
 
-    useEffect(() => {
-        console.log("Count changed:", count);
-    }, [count]);
 
     const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(search.toLowerCase())
@@ -177,17 +174,10 @@ function App() {
                 </p>
             )}
 
-            <button onClick={() => setCount(count + 1)}>
-                Count: {count}
-            </button>
+
 
             {filteredUsers.map(user => (
-                <div key={user.id}>
-                    <h2>{user.name}</h2>
-                    <p>{user.email}</p>
-                    <p>{user.phone}</p>
-                    <p>{user.website}</p>
-                    </div>
+                <UserCard key={user.id} user={user} />
             ))}
         </div>
     );
