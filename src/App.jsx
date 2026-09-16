@@ -118,6 +118,7 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
+    const [company, setCompany] = useState("all");
 
     useEffect(() => {
 
@@ -140,9 +141,23 @@ function App() {
     }, []);
 
 
-    const filteredUsers = users.filter(user =>
-        user.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredUsers = users.filter(user => {
+
+        const matchesSearch =
+            user.name.toLowerCase().includes(search.toLowerCase());
+
+        const matchesCompany =
+            company === "all" || user.company.name === company;
+
+        return matchesSearch && matchesCompany;
+    });
+
+
+
+    const companies = [...new Set(
+        users.map(user => user.company.name)
+    )];
+
 
     return (
 
@@ -156,6 +171,19 @@ function App() {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
+            <select
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+            >
+                <option value="all">All Companies</option>
+
+                {companies.map(companyName => (
+                    <option key={companyName} value={companyName}>
+                        {companyName}
+                    </option>
+                ))}
+            </select>
+
             {loading && (
                 <p>
                     Loading users... Please Wait . . .
@@ -168,7 +196,9 @@ function App() {
                 </p>
             )}
 
-
+            {!loading && !error && filteredUsers.length === 0 && (
+                <p>No users found.</p>
+            )}
 
             {filteredUsers.map(user => (
                 <UserCard key={user.id} user={user} />
