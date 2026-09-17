@@ -109,8 +109,9 @@
 ///////////////////////////////////////////Day 2 /////////////////////////////////////////
 
 import { useEffect ,useState } from "react";
-import UserCard from "./components/UserCard";
+import UserList from "./components/UserList";
 import { getUsers } from "./services/userService";
+
 
 function App() {
 
@@ -200,9 +201,8 @@ function App() {
                 <p>No users found.</p>
             )}
 
-            {filteredUsers.map(user => (
-                <UserCard key={user.id} user={user} />
-            ))}
+            <UserList users={filteredUsers} />
+
         </div>
     );
 }
