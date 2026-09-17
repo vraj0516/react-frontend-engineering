@@ -111,6 +111,7 @@
 import { useEffect ,useState } from "react";
 import UserList from "./components/UserList";
 import { getUsers } from "./services/userService";
+import Card from "./components/Card";
 
 
 function App() {
@@ -164,6 +165,11 @@ function App() {
 
         <div>
             <h1>User Dashboard</h1>
+
+            <Card>
+                <h2>React User Dashboard</h2>
+                <p>Manage and search users</p>
+            </Card>
 
             <input
                 type="text"
