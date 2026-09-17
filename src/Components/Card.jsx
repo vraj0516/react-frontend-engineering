@@ -1,9 +1,14 @@
-function Card({ children }) {
+import Card from "./Card";
+
+function UserCard({ user }) {
     return (
-        <div>
-            {children}
-        </div>
+        <Card>
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            <p>{user.phone}</p>
+            <p>{user.website}</p>
+        </Card>
     );
 }
 
-export default Card;
+export default UserCard;
